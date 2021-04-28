@@ -46,13 +46,19 @@ library(bookdown)
 
 ```
 
+```{r}
+world <- read.csv("Data/worldwidecases.csv")
+world1 <- world %>%
+  filter(countriesAndTerritories %in% c("China","United_Kingdom"))%>%
+  select(dateRep, cases, deaths, popData2018,countriesAndTerritories, )%>%
+  rename(country = "countriesAndTerritories") %>%
+  mutate(death_rate = deaths /popData2018 )
+  
+```
 
 
-\section*{Country XX1 and YY1"}
+\section*{Country China and United_Kingdom"}
 
-\section*{Country XX2 and YY2}
-
-\section*{Country XX3 and YY3}
 
 
 

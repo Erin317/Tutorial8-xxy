@@ -1,12 +1,12 @@
 ---
 title: "Corona Virus Report"
 author:
-- familyname: XXXX
-  othernames: XXX
+- familyname: Xinying
+  othernames: Xu
   address: Monash Universtidy
-  email: XXX
+  email: xxuu0075@student.monash.edu
   correspondingauthor: true
-  qualifications:  XXX
+  qualifications:  students in Monash university
 - familyname: XXXX
   othernames: Reports
   address: XXX
@@ -46,19 +46,32 @@ library(bookdown)
 
 ```
 
-```{r}
+\section*{Country China and United_Kingdom"}
+```{r table}
 world <- read.csv("Data/worldwidecases.csv")
-world1 <- world %>%
+covid19 <- world %>%
   filter(countriesAndTerritories %in% c("China","United_Kingdom"))%>%
-  select(dateRep, cases, deaths, popData2018,countriesAndTerritories, )%>%
+  select(dateRep, day, month, year, cases, deaths, popData2018,countriesAndTerritories, )%>%
   rename(country = "countriesAndTerritories") %>%
-  mutate(death_rate = deaths /popData2018 )
-  
+  group_by(country)%>%
+  summarise(total_death = sum(deaths),
+            total_cases = sum(cases))
+knitr::kable(covid19,
+             caption = "The information of China and UK")
 ```
 
+In table \@ref(tab:table), we can know about the total cases and total deaths of the two countries.
 
-\section*{Country China and United_Kingdom"}
+```{r fig}
+ggplot(covid19,
+       aes(country,total_death,
+           fill = country)) +
+  geom_col()
+```
 
+In the figure \@ref(fig:fig), it shows the figure of total deaths in the two countries.
+
+more information, please check @covid2020modeling
 
 
 
